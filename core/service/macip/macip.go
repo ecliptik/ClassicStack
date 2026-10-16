@@ -1096,8 +1096,8 @@ func (s *Service) handleMacIPData(d ddp.Datagram) {
 	// to a few DDP segments here, believing a classic MacTCP receiver over-advertises and
 	// the peer must be throttled. That was WRONG for NAT mode, where the egress is our own
 	// OSNAT TCP-terminating proxy (adapter/macipgw/nat): OSNAT already paces itself on the
-	// Mac's REAL advertised window (space = macAck + macWindow − ourSeq) and never
-	// retransmits, so feeding it a falsified small window starved that loop — a single
+	// Mac's REAL advertised window (space = macAck + macWindow − ourSeq) and then never
+	// retransmitted, so feeding it a falsified small window starved that loop — a single
 	// dropped segment drove space to 0 and the flow DEADLOCKED (capture ltoudp-netboot.pcap:
 	// the Mac ACKs only the first of a burst, then the connection wedges and RSTs). The
 	// real burst constraint is the LToUDP transport, and the per-node link pace

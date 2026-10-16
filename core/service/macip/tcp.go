@@ -12,7 +12,7 @@ package macip
 // over-advertises and the peer must be paced. That was wrong for NAT mode: the egress
 // there is our own OSNAT TCP-terminating proxy (adapter/macipgw/nat), which already
 // paces itself on the Mac's REAL advertised window (space = macAck + macWindow −
-// ourSeq) and does not retransmit, so a falsified small window starved that loop and a
+// ourSeq) and then did not retransmit, so a falsified small window starved that loop and a
 // single dropped segment DEADLOCKED the flow (capture ltoudp-netboot.pcap). The genuine
 // LToUDP burst constraint belongs to the per-node link pace (core/link.Pace), not to a
 // TCP rewrite on the data path. The clamps and their TCP-checksum recompute were removed;
